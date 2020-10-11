@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+
+</head>
+
+<body>
+    <div class="loginContainer">
+        <div class="loginTitle">Registrate</div>
+        <div class="fields-Container">
+            <input type="text" id="user" placeholder="Usuario..." />
+            <input type="password" id="pass" placeholder="Contraseña..." />
+            <button id="login" class="loginButton loginton">Registrarme</button>
+            <button id="login" class=" loginButton aqui">Volver</button>
+        </div>
+    </div>
+    <script src="./js/jquery.js"></script>
+    <script>
+        var nombreUsuario = $('#user')
+        var pass = $('#pass')
+        $('.loginton').on('click', function(event) {
+            if (nombreUsuario.val() != "" && pass.val() != "") {
+                $.post('/signup', {
+                    user: nombreUsuario.val(),
+                    pass: pass.val()
+                }, function(response) {
+                    if (response == "Creado") {
+                        window.location.href = "http://localhost:3000/index.html"
+                    }
+                })
+            } else {
+                alert("Complete todos los campos")
+            }
+        });
+        $('.aqui').on('click', function(event){
+            $.get('/signup', (response)=>{
+                if (response == "ok") {
+                        window.location.href = "http://localhost:3000/index.html"
+                    }            });
+                
+        });
+    </script>
+</body>
+
+</html>
